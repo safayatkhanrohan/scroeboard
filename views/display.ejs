@@ -1,0 +1,62 @@
+<%- include('./header') %>
+
+<body>
+  <!-- rendered by app
+    name, oTeamName, target, score, wickets, overs, balls, innings -->
+  <div class="animation">
+    <h1></h1>
+  </div>
+  <div class="wrapper">
+    <div class="grid-item1">
+      <p><%= name %> vs <%= oTeamName %></p>
+    </div>
+    <div class="grid-item2">
+      <p><%= name %>: <%= score %></p>
+    </div>
+    <div class="grid-item3">
+      <p>OV: <%= overs %>.<%= balls %></p>
+    </div>
+    <div class="grid-item4">
+      <p>WK: <%= wickets %></p>
+    </div>
+    <div class="grid-item5">
+      <% if (innings == 2) { %>
+      <p>T: <%= target %></p>
+      <% } %>
+    </div>
+    <div class="grid-item6">
+      <div class="title-text">
+        <% if (innings == 2) { %>
+        <p><%= name %> NEEDS <%= target - score %> MORE RUNS</p>
+        <% } else { %>
+        <p>FIRST INNINGS</p>
+        <% } %>
+      </div>
+      <div class="logo">
+        <img src="./images/logo-min.png" />
+      </div>
+    </div>
+  </div>
+
+  <script src="socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    socket.on("message", function (msg) {
+      const animationElement = document.querySelector(".animation");
+      if (msg === "6" || msg === "4" || msg === "WICKET") {
+        animationElement.querySelector("h1").innerHTML = msg;
+        if (msg === "6" || msg === "4") {
+          animationElement.querySelector("h1").style.fontSize = "60vh";
+        }
+        animationElement.style.display = "flex";
+        setTimeout(() => {
+          animationElement.style.display = "none";
+          location.reload();
+        }, 3000); // 3 seconds
+      } else {
+        location.reload();
+      }
+    });
+  </script>
+</body>
+</html>

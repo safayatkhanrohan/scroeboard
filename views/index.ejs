@@ -1,0 +1,31 @@
+<%- include('./header') %>
+<body>
+    <div class="index-container">
+        <div class="index-item">
+            <form action="/current-team" method="post">
+                <input type="text" name="teamName" id="name" placeholder="Batting Team" autocomplete="off">
+                <button type="submit">SUBMIT</button>
+            </form>
+        
+            <form action="/score" method="post">
+                <input type="number" name="inputScore" id="score" placeholder="Score" autocomplete="off">
+                <button type="submit">UPDATE</button>
+            </form>
+        
+            <form action="/over" method="post">
+                <button type="submit" class="item-center">BALL+</button>
+            </form>
+        
+            <form action="/wicket" method="post">
+                <button type="submit" class="item-center">WICKET+</button>
+            </form>
+        
+            <form action="/setup" method="get">
+                <p>Please setup the teams before the match</p>
+                <button type="submit" class="item-center">SETUP</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
