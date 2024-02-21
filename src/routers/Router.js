@@ -10,6 +10,7 @@ const {
   scoreController,
   wicketController,
   oversController,
+  liveController,
 } = require("../controllers/controller");
 
 router.get("/", rootController);
@@ -23,6 +24,7 @@ router.get("/score", displayController);
 
 router.get("/setup", setupGetController);
 router.post("/setup", setupPostController);
+router.get("/live", liveController);
 
 // for updating
 router.post("/score", scoreController);

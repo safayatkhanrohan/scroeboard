@@ -1,0 +1,41 @@
+<%- include('./header') %>
+
+<body>
+  <!-- rendered by app
+    name, oTeamName, target, score, wickets, overs, balls, innings -->
+  <div class="animation">
+    <h1></h1>
+  </div>
+    <div class="live-footer">
+      <p><%= oTeamName %> vs <%= name %>: <%= score %>/<%= wickets %></p>
+        <p>OVERS: <%= overs %>.<%= balls %></p>
+      <div class="live-counter">
+        <% if (innings == 2) { %>
+            <% if(score >= target) { %>
+              <p><%= name %> WINS the Match</p>
+            <% } else { %>
+              <p><%= name %> NEEDS <%= target - score %> MORE RUNS</p>
+            <% } %>
+          
+          <% } else { %>
+          <p>FIRST INNINGS</p>
+          <% } %>
+      </div>
+
+      <div class="target-container">
+        <% if (innings == 2) { %>
+        <p>TARGET: <%= target %></p>
+        <% } %>
+      </div>
+
+
+
+  <script src="socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    socket.on("message", function (msg) {
+        location.reload();
+    });
+  </script>
+</body>
+</html>

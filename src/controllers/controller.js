@@ -104,6 +104,26 @@ const oversController = async (req, res) => {
     res.redirect("/");
 }
 
+const liveController = async (req, res) => {
+  const [cTeam] = await findTeam(currentTeam);
+
+  let name = "Team1", score = 0, wickets = 0, overs = 0, innings = 1;
+  let oTeamName = "Team2", target = 0;
+  try {
+    name = cTeam.name;
+    score = cTeam.score;
+    wickets = cTeam.wickets;
+    overs = cTeam.overs;
+    innings = cTeam.innings;
+
+    const [oTeam] = await findTeam({ $ne: currentTeam });
+    target = oTeam.score + 1;
+    oTeamName = oTeam.name;
+  } catch (error) {
+    console.error("please setup teams or input batting team");
+  }
+  res.render("live", { name, oTeamName, target, score, wickets, overs, balls, innings });
+}
 module.exports = {
   rootController,
   setupGetController,
@@ -113,5 +133,6 @@ module.exports = {
   scoreController,
   wicketController,
   oversController,
-  currentTeam,
+  liveController,
+  currentTeam
 };

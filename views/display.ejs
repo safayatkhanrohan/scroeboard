@@ -27,7 +27,12 @@
     <div class="grid-item6">
       <div class="title-text">
         <% if (innings == 2) { %>
-        <p><%= name %> NEEDS <%= target - score %> MORE RUNS</p>
+          <% if(score >= target) { %>
+            <p><%= name %> WINS the match</p>
+          <% } else { %>
+            <p><%= name %> NEEDS <%= target - score %> MORE RUNS</p>
+          <% } %>
+        
         <% } else { %>
         <p>FIRST INNINGS</p>
         <% } %>
